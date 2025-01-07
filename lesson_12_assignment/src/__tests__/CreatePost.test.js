@@ -2,16 +2,13 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CreatePost from '../components/CreatePost';
-import { TextEncoder, TextDecoder } from 'util';
+import { TextDecoder, TextEncoder } from 'util';
 
 global.fetch = jest.fn(() => 
     Promise.resolve({
         json: () => Promise.resolve({ id: 101, title: 'foo', body: 'bar', userId: 1})
     })
 );
-
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
 
 beforeEach(() => {
     fetch.mockClear();
