@@ -6,9 +6,6 @@ import NavigationBar from "./NavigationBar";
 import '../i18n';
 import { useTranslation } from "react-i18next";
 
-globalThis.TextEncoder = utils.TextEncoder;
-globalThis.TextDecoder = utils.TextDecoder
-
 const newPost = async (post) => {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: "POST",
