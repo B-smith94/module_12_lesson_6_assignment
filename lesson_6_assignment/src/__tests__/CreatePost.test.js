@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CreatePost from '../components/CreatePost';
-import { TextDecoder, TextEncoder } from 'util';
 
 global.fetch = jest.fn(() => 
     Promise.resolve({
@@ -30,8 +29,11 @@ describe('CreatePost Component', () => {
             method: 'POST',
             body: JSON.stringify({ title: 'foo', body: 'bar', userId: 1 }),
             headers: {
-                'Content Type': 'application/json; charset-UTF-8',
+                'Content-Type': 'application/json; charset=UTF-8',
             }
-        })
+        });
+
+        expect(screen.getByText('foo')).toBeInTheDocument();
+        expect(screen.getByText('bar')).toBeInTheDocument();
     })
 })

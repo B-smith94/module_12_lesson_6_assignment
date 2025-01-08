@@ -1,11 +1,7 @@
 import React from 'react';
-import { render, fireEvent, waitFor, getByText } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ViewPosts from '../components/ViewPosts';
-import { TextEncoder, TextDecoder } from 'text-encoding'
-
-global.TextEncoder = require('util').TextEncoder;
-global.TextDecoder = require('util').TextDecoder;
 
 global.fetch = jest.fn(() => 
     Promise.resolve({
@@ -17,12 +13,12 @@ beforeEach(() => {
     fetch.mockClear();
 });
 // Task 5
-describe('ViewPosts Component', async () => {
+describe('ViewPosts Component', () => {
     test('all posts are rendered after running the fetch function', async () => {
         render(<ViewPosts />);
         
         await waitFor(() => {
-            expect(fetch).toHaveBeenCalledWith('https://https://jsonplaceholder.typicode.com/posts')
+            expect(fetch).toHaveBeenCalledWith('https://jsonplaceholder.typicode.com/posts')
         });
 
         expect(screen.getByText('foo')).toBeInTheDocument();

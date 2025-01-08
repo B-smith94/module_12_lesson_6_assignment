@@ -1,15 +1,15 @@
-import { Navbar, Nav } from "react-bootstrap";   
+import { Container, Navbar, Nav } from "react-bootstrap";   
 import { useTranslation } from 'react-i18next';
 import "../i18n";
 
 const NavigationBar = () => {
-
+    // Task 3
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
     }
-
+    // Task 1
     return (
         <>
             <Navbar bg='light' expand='lg' as='header' role='navigation'>

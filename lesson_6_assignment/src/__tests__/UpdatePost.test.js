@@ -1,11 +1,17 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import UpdatePost from '../components/UpdatePost';
 
 global.fetch = jest.fn(() => 
     Promise.resolve({
-        json: () => Promise.resolve({ id: 101, title: 'foo', body: 'bar', userId: 1})
+        json: () => 
+            Promise.resolve({ 
+                id: 101, 
+                title: 'foo', 
+                body: 'barr', 
+                userId: 1
+            }),
     })
 );
 
@@ -14,7 +20,7 @@ beforeEach(() => {
 });
 // Task 7
 describe('Update Post Component', () => {
-    test('post is updated after the update function', async () => {
+    test('post is updated after the update button is clicked', async () => {
         render(<UpdatePost />);
         
         fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'foo' }})
@@ -28,7 +34,7 @@ describe('Update Post Component', () => {
             method: 'PUT',
             body: JSON.stringify({ title: 'foo', body: 'barr', userId: 1 }),
             headers: {
-                'Content Type': 'application/json; charset-UTF-8',
+                'Content Type': 'application/json; charset=UTF-8',
             }
         })
     })
