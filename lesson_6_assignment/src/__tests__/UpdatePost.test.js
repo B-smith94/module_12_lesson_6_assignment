@@ -5,13 +5,7 @@ import UpdatePost from '../components/UpdatePost';
 
 global.fetch = jest.fn(() => 
     Promise.resolve({
-        json: () => 
-            Promise.resolve({ 
-                id: 101, 
-                title: 'foo', 
-                body: 'barr', 
-                userId: 1
-            }),
+        json: () => Promise.resolve({ id: 101, title: 'foo', body: 'barr', userId: 1}),
     })
 );
 
@@ -26,15 +20,15 @@ describe('Update Post Component', () => {
         fireEvent.change(screen.getByLabelText(/Title/i), { target: { value: 'foo' }})
         fireEvent.change(screen.getByLabelText(/Body/i), { target: { value: 'barr' }});
 
-        fireEvent.click(screen.getByText(/Update Post/i));
+        fireEvent.click(screen.getByText(/Submit Post/i));
 
         await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
 
         expect(fetch).toHaveBeenCalledWith(`https://jsonplaceholder.typicode.com/posts/101`, {
             method: 'PUT',
-            body: JSON.stringify({ title: 'foo', body: 'barr', userId: 1 }),
+            body: JSON.stringify({ title: 'foo', body: 'barr' }),
             headers: {
-                'Content Type': 'application/json; charset=UTF-8',
+                'Content-Type': 'application-json; charset=UTF-8',
             }
         })
     })
